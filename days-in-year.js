@@ -1,14 +1,14 @@
 function getDaysInYear(year) {
-        if (!Number.isInteger(year)) {
-            throw new Error("Incorrect data: year is not a positive integer");
-        }
+  if (!Number.isInteger(year)) {
+    throw new Error("Incorrect data: year is not a positive integer");
+  }
 
-        const firstDay = new Date(year, 0, 1);
-        const lastDay = new Date(year, 11, 31, 23, 59, 59);
-        const mlsecInYear = lastDay - firstDay;
-        const mlsecInDay = 1000 * 60 * 60 * 24;
+  const firstDay = new Date(year, 0, 1);
+  const lastDay = new Date(year, 11, 31, 23, 59, 59);
+  const mlsecInYear = lastDay - firstDay;
+  const mlsecInDay = 1000 * 60 * 60 * 24;
 
-        return Math.ceil(mlsecInYear / mlsecInDay);
+  return Math.ceil(mlsecInYear / mlsecInDay);
 }
 
 function catchWrapper(f) {
@@ -16,13 +16,15 @@ function catchWrapper(f) {
     try {
       const result = f.apply(this, arguments);
       console.log(result);
+      return result;
     } catch (error) {
       console.log(error);
+      return undefined;
     }
   }
 }
 
-let daysInYear = catchWrapper(getDaysInYear);
+const daysInYear = catchWrapper(getDaysInYear);
 
 daysInYear(2019); // 365
 daysInYear('2019'); // exception
